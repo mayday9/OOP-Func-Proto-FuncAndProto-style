@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OOP</title>
+</head>
+<body>
+    <script>
+
+        function Person(name, age) {
+
+
+            // var cristal = 0;
+            // var monet = 0;
+            // var vote = 0;
+            // var visit = 0;
+            var lastVisit = {};
+            var data = [];
+
+
+
+            this.getStat = function() {
+                console.log("Студент " + name+ " возростом " + age );
+                for (let i = 0; i < data.length; i++){
+                    console.log("на занятии " + data[i].date + " получил " + data[i].monet + " монет, " + data[i].cristal + " кристаллов" + " и оценку: " + data[i].vote);
+                }
+            }
+
+            this.addCristal = function(crist) {
+                if (lastVisit != undefined){
+                    if (crist > 5) {throw new Error("No more than 5 cristals!")}
+                    else {lastVisit.cristal = crist};
+                } else {throw new Error("There is no visit!")}
+            }
+
+            function addMonet() {
+                lastVisit.monet = lastVisit.monet + 1;
+            }
+
+            this.addVote = function(vot) {
+                if (lastVisit != undefined) {
+                    if (vot >= 1 && vot <= 12) {
+                        lastVisit.vote = vot;
+                    } else {
+                        throw new Error("Vote must be from 1 to 12");
+                    }
+                }
+            }
+            this.addVisit = function (vis){
+
+                lastVisit = {date: vis, monet: 0};
+                addMonet();
+
+                if(lastVisit != undefined){
+                    data.push(lastVisit);
+                }
+                // + добавление монеты
+
+            }
+
+
+            this.getVisit = function () {
+                return lastVisit;
+            }
+
+
+        }
+
+        var tom = new Person('Вася', 30);
+
+
+        tom.addVisit("23/08/2018");
+        tom.addVote(6);
+        tom.addCristal(5);
+
+        tom.addVisit("24/08/2018");
+        tom.addVote(7);
+        tom.addCristal(3);
+
+
+
+        // console.log(date);
+
+
+
+        tom.getStat();
+
+
+
+    </script>
+</body>
+</html>

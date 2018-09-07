@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    let HeroProto = {
+
+        army: [1, 2],
+        levelOfHero: 1,
+        status: "alive",
+
+        heroScream: function () {
+            console.log("Kill them all!");
+        },
+
+        indexOfPower: function () {
+            return this.levelOfHero * this.army.length;
+        },
+
+        atack: function (anotherHero) {
+            if (anotherHero.indexOfPower() <= this.indexOfPower()) {
+                this.changeHeroLevel(true);
+                anotherHero.changeHeroLevel(false);
+            } else {
+                this.changeHeroLevel(false);
+                anotherHero.changeHeroLevel(false);
+            }
+        },
+
+        changeHeroLevel: function (victory) {
+            if (victory == true) {
+                this.levelOfHero = this.levelOfHero + 1;
+            } else {
+                this.levelOfHero = this.levelOfHero - 1;}
+        }
+
+
+    }
+
+    let SoldierProto = {
+
+        soldierAnswer: function () {
+            console.log("Yes sir!");
+        },
+
+        followHero: function (someHero) {
+            someHero.army.push(this);
+        },
+    }
+
+
+    function Hero(name) {
+
+
+        this.name = name;
+        this.__proto__ = HeroProto;
+    }
+
+    function Soldier(soldierName) {
+
+        this.soldierName = soldierName;
+        //this.__proto__ = SoldierProto;
+
+    }
+
+    var h1 = new Hero("Hero1");
+    var h2 = new Hero("Hero2");
+
+    // for (let i = 1; i <= 1000; i++) {
+    //     var sol = new Soldier(i);
+    //     var goToHero = Math.round(Math.random());
+    //     if (goToHero == 0){
+    //         sol.followHero(h1);}
+    //     else {sol.followHero(h2)}
+    // }
+
+
+
+
+    Soldier.prototype = SoldierProto;  //перезаписали constructor
+    var sol1 = new Soldier("S1");
+    console.log(sol1);
+
+    Soldier.prototype.constructor = Soldier; // вернули constructor
+    var sol2 = new sol1.constructor("S2");
+    console.log(sol2);
+
+
+</script>
+</body>
+</html>

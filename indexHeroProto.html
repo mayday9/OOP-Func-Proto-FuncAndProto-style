@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        let HeroProto = {
+
+            army: [],
+            levelOfHero: 1,
+
+            heroScream: function () {
+                console.log("Kill them all!");
+            },
+
+            indexOfPower: function () {
+                return this.levelOfHero * this.army.length;
+            },
+
+            atack: function (anotherHero) {
+                if (anotherHero.indexOfPower() <= this.indexOfPower()) {
+                    this.changeHeroLevel(true);
+                    anotherHero.changeHeroLevel(false);
+                } else {
+                    this.changeHeroLevel(false);
+                    anotherHero.changeHeroLevel(false);
+                }
+            },
+
+            changeHeroLevel: function (victory) {
+                if (victory == true) {
+                    this.levelOfHero = this.levelOfHero + 1;
+                } else {
+                    this.levelOfHero = this.levelOfHero - 1;}
+            }
+
+
+        }
+
+        let SoldierProto = {
+
+
+            soldierAnswer: function () {
+                console.log ("Yes sir!");
+            },
+
+            followHero: function (someHero) {
+                if(!someHero.hasOwnProperty("army")){
+                    someHero.army = [];
+                }
+                someHero.army.push(this);
+            }
+
+        }
+
+        let h1 = {name: "Hero1"};
+        h1.__proto__ = HeroProto;
+
+        let h2 = {name: "Hero2"};
+        h2.__proto__ = HeroProto;
+
+
+
+        for (let i = 1; i <= 100; i++){
+
+            var soldier = {};
+            soldier.__proto__ = SoldierProto;
+
+            var goToHero = Math.round(Math.random());
+
+            if (goToHero == 0){
+                soldier.followHero(h1);}
+            else {soldier.followHero(h2)}
+            }
+
+        h1.atack(h2);
+
+        console.log(h1);
+        console.log(h2);
+
+
+
+
+    </script>
+</body>
+</html>

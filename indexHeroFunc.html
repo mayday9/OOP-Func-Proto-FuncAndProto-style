@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heros</title>
+</head>
+<script>
+
+    function Soldier(soldierName) {
+
+        this.soldierName = soldierName;
+        this.followHero = function (someHero) {
+            someHero.army.push(this);
+        }
+    }
+
+
+    function Hero(name) {
+
+
+        this.name = name;
+
+        this.army = [];
+        this.levelOfHero = 1;
+        this.status = "alive";
+
+
+
+        this.indexOfPower = function  () {
+            return this.levelOfHero * this.army.length;
+        }
+
+        this.atack = function (anotherHero) {
+            if (anotherHero.indexOfPower() < this.indexOfPower()) {
+                this.changeHeroLevel(true);
+                anotherHero.changeHeroLevel(false);
+            } else {
+                this.changeHeroLevel(false);
+                anotherHero.changeHeroLevel(true);
+            }
+
+        }
+
+        this.changeHeroLevel = function  (victory) {
+            if (victory == true) {
+                this.levelOfHero = this.levelOfHero + 1;
+
+            } else {
+                this.levelOfHero = this.levelOfHero - 1;
+                if (this.levelOfHero < 1) {
+                    this.status = "dead";
+                }
+            }
+        }
+    }
+
+
+    var h1 = new Hero("Hero1");
+    var h2 = new Hero("Hero2");
+
+
+    for (let i = 1; i <= 1000; i++) {
+        var sol = new Soldier(i);
+        var goToHeroNumber = Math.round(Math.random());
+        if (goToHeroNumber == 0){
+            sol.followHero(h1);}
+        else {sol.followHero(h2)}
+    }
+
+    console.log (h1.army);
+    console.log (h2.army);
+    // console.log (goToHeroNumber);
+
+    h1.atack(h2);
+    // h1.atack(h2);
+
+
+
+    console.log(h1);
+    console.log("Index: " + h1.indexOfPower());
+    console.log("Level: " + h1.levelOfHero);
+
+
+    console.log(h2);
+    console.log("Index: " + h2.indexOfPower());
+    console.log("Level: " + h2.levelOfHero);
+
+
+
+
+
+
+
+
+
+</script>
+<body>
+
+</body>
+</html>
